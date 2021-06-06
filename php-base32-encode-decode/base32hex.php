@@ -19,10 +19,9 @@ const base64hexFrom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 const base64hexTo   = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}';
 function base64hex_encode( $string ) {
 	return rtrim( strtr( base64_encode( $string ), base64hexFrom, base64hexTo ), '=' );
-	#return str_replace( '=', '', strtr( base64_encode( $string ), base64hexFrom, base64hexTo ) );
 }
 function base64hex_decode( $string ) {
-	return base64_decode( strtr( $string, base64hexTo, base64hexFrom ) . str_repeat( '=', ( 3 - strlen( $string ) % 3 ) % 3 ) );
+	return base64_decode( strtr( $string, base64hexTo, base64hexFrom ) );
 }
 
 function uuencode( $string ) {
