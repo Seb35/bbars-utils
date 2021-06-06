@@ -187,11 +187,6 @@ class Base16hex
 			$c = $remainder & self::BITS_4_RIGHT;
 			$res .= static::CHARS[$c];
 		}
-		if ($padRight)
-		{
-			$padSize = (8 - ceil(($dataSize % 4) * 8 / 4)) % 8;
-			$res .= str_repeat('=', $padSize);
-		}
 
 		return $res;
 	}
