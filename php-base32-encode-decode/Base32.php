@@ -4,6 +4,7 @@ class Base32
 {
 	const BITS_5_RIGHT = 31;
 	const CHARS = 'abcdefghijklmnopqrstuvwxyz234567'; // lower-case
+	const PADDING = '=';
 
 	public static function encode($data, $padRight = false)
 	{
@@ -35,7 +36,7 @@ class Base32
 		if ($padRight)
 		{
 			$padSize = (8 - ceil(($dataSize % 5) * 8 / 5)) % 8;
-			$res .= str_repeat('=', $padSize);
+			$res .= str_repeat(self::PADDING, $padSize);
 		}
 
 		return $res;
@@ -43,7 +44,7 @@ class Base32
 
 	public static function decode($data)
 	{
-		$data = rtrim($data, "=\x20\t\n\r\0\x0B");
+		$data = rtrim($data, self::PADDING . "\x20\t\n\r\0\x0B");
 		$dataSize = strlen($data);
 		$buf = 0;
 		$bufSize = 0;
@@ -78,12 +79,14 @@ class Base32
 class Base32hex extends Base32
 {
 	const CHARS = '0123456789abcdefghijklmnopqrstuv'; // lower-case
+	const PADDING = '.';
 }
 
 class Base64hex
 {
 	const BITS_6_RIGHT = 63;
 	const CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}';
+	const PADDING = '.';
 
 	public static function encode($data, $padRight = false)
 	{
@@ -123,7 +126,7 @@ class Base64hex
 
 	public static function decode($data)
 	{
-		$data = rtrim($data, "=\x20\t\n\r\0\x0B");
+		$data = rtrim($data, self::PADDING . "\x20\t\n\r\0\x0B");
 		$dataSize = strlen($data);
 		$buf = 0;
 		$bufSize = 0;
@@ -159,6 +162,7 @@ class Base16hex
 {
 	const BITS_4_RIGHT = 15;
 	const CHARS = '0123456789abcdef'; // lower-case
+	const PADDING = '.';
 
 	public static function encode($data, $padRight = false)
 	{
@@ -193,7 +197,7 @@ class Base16hex
 
 	public static function decode($data)
 	{
-		$data = rtrim($data, "=\x20\t\n\r\0\x0B");
+		$data = rtrim($data, self::PADDING . "\x20\t\n\r\0\x0B");
 		$dataSize = strlen($data);
 		$buf = 0;
 		$bufSize = 0;
