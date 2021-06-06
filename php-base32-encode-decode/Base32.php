@@ -114,8 +114,8 @@ class Base64hex
 		}
 		if ($padRight)
 		{
-			$padSize = (8 - ceil(($dataSize % 6) * 8 / 6)) % 8;
-			$res .= str_repeat('=', $padSize);
+			$padSize = (4 - ceil(($dataSize % 3) * 4 / 3)) % 4;
+			$res .= str_repeat(self::PADDING, $padSize);
 		}
 
 		return $res;
