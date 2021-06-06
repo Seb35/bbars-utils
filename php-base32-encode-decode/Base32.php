@@ -4,14 +4,14 @@ class Base32
 {
 	const BITS_5_RIGHT = 31;
 	const CHARS = 'abcdefghijklmnopqrstuvwxyz234567'; // lower-case
-	
+
 	public static function encode($data, $padRight = false)
 	{
 		$dataSize = strlen($data);
 		$res = '';
 		$remainder = 0;
 		$remainderSize = 0;
-		
+
 		for ($i = 0; $i < $dataSize; $i++)
 		{
 			$b = ord($data[$i]);
@@ -37,10 +37,10 @@ class Base32
 			$padSize = (8 - ceil(($dataSize % 5) * 8 / 5)) % 8;
 			$res .= str_repeat('=', $padSize);
 		}
-		
+
 		return $res;
 	}
-	
+
 	public static function decode($data)
 	{
 		$data = rtrim($data, "=\x20\t\n\r\0\x0B");
@@ -50,7 +50,7 @@ class Base32
 		$res = '';
 		$charMap = array_flip(str_split(static::CHARS)); // char=>value map
 		$charMap += array_flip(str_split(strtoupper(static::CHARS))); // add upper-case alternatives
-		
+
 		for ($i = 0; $i < $dataSize; $i++)
 		{
 			$c = $data[$i];
@@ -70,7 +70,7 @@ class Base32
 				$res .= chr($b);
 			}
 		}
-		
+
 		return $res;
 	}
 }
